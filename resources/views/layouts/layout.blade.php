@@ -3,6 +3,7 @@
 <head>
     <title>HANDA</title>
     @vite('resources/css/app.css')
+    @stack('styles')
 </head>
 <body class="bg-gray-100">
 
@@ -68,5 +69,6 @@
         @yield('content')
     </main>
 
+    @stack('scripts')
 </body>
 </html>
