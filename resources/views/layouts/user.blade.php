@@ -24,26 +24,42 @@
 
                 <!-- Right Nav -->
                 <nav class="flex items-center space-x-4">
+                    @guest
+                        <a href="{{ route('login') }}"
+                            class="{{ request()->routeIs('login') 
+                            ? 'bg-gray-700 text-white px-4 py-2 rounded-xl' 
+                            : 'text-gray-600 hover:text-gray-900 px-4 py-2' }}">
+                            Login
+                        </a>
+                        <a href="{{ route('register') }}"
+                            class="{{ request()->routeIs('register') 
+                            ? 'bg-gray-700 text-white px-4 py-2 rounded-xl' 
+                            : 'text-gray-600 hover:text-gray-900 px-4 py-2' }}">
+                            Register
+                        </a>
+                        @endguest
+                    @auth
+                        <h3>Welcome, {{ Auth::user()->firstName }}</h3>
 
-                        <!-- Dashboard -->
-                        <a href="{{ route('admin.dashboard') }}"
-                            class="{{ request()->routeIs('admin.dashboard') 
+                        <!--Checklist Dashboard -->
+                        <a href="{{ route('staff.dashboard') }}"
+                            class="{{ request()->routeIs('staff.dashboard') 
                             ? 'bg-gray-700 text-white px-4 py-2 rounded-xl' 
                             : 'text-gray-600 hover:text-gray-900 px-4 py-2' }}">
                             Dashboard
                         </a>
 
-                        <!-- Households -->
-                        <a href="{{ route('admin.households') }}"
-                            class="{{ request()->routeIs('admin.households') 
+                        <!-- Add Households -->
+                        <a href="{{ route('staff.households') }}"
+                            class="{{ request()->routeIs('staff.households') 
                             ? 'bg-gray-700 text-white px-4 py-2 rounded-xl' 
                             : 'text-gray-600 hover:text-gray-900 px-4 py-2' }}">
-                            Households
+                            Add Households
                         </a>
 
                         <!-- Map -->
-                        <a href="{{ route('admin.map') }}"
-                            class="{{ request()->routeIs('admin.map') 
+                        <a href="{{ route('staff.map') }}"
+                            class="{{ request()->routeIs('staff.map') 
                             ? 'bg-gray-700 text-white px-4 py-2 rounded-xl' 
                             : 'text-gray-600 hover:text-gray-900 px-4 py-2' }}">
                             Map View
@@ -56,7 +72,7 @@
                                 Logout
                             </button>
                         </form>
-                    
+                        @endauth
                 </nav>
 
             </div>
