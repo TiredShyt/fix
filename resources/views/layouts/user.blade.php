@@ -50,8 +50,8 @@
                         </a>
 
                         <!-- Add Households -->
-                        <a href="{{ route('staff.households') }}"
-                            class="{{ request()->routeIs('staff.households') 
+                        <a href="{{ route('households.index') }}"
+                            class="{{ request()->routeIs('households.index') 
                             ? 'bg-gray-700 text-white px-4 py-2 rounded-xl' 
                             : 'text-gray-600 hover:text-gray-900 px-4 py-2' }}">
                             Add Households

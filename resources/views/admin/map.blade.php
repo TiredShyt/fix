@@ -1,64 +1,96 @@
 @extends('layouts.layout')
 
 @push('styles')
-    {{-- Pointing to public/css/leaflet.css --}}
-    <link rel="stylesheet" href="{{ asset('css/leaflet.css') }}" />
-    <style>
-        #map { 
-            height: 600px; 
-            width: 100%; 
-            border-radius: 1rem; 
-            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
-        }
-    </style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<style>
+    #map {
+        height: 350px;
+        width: 100%;
+        border-radius: 1rem;
+    }
+</style>
 @endpush
 
 @section('content')
 <div class="max-w-7xl mx-auto">
+
     <div class="mb-6">
         <h1 class="text-3xl font-bold text-gray-800">Barangay Preparedness Map</h1>
-        <p class="text-sm text-gray-500">Local Resource Mode: Offline Ready</p>
+        <p class="text-sm text-gray-500">Admin View (Same as User Map)</p>
     </div>
 
     <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-        <div id="map"></div>
+
+        <!-- Map -->
+        <div class="relative">
+
+            <div id="map"></div>
+
+        </div>
+
     </div>
 </div>
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/leaflet.js') }}"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Precise coordinates for Brgy. Camputhaw Hall (Molave St.)
-            var brgyHallCoords = [10.3182, 123.8935];
-            
-            // Tightened boundaries based on image_77d9b1.jpg
-            var southWest = L.latLng(10.3090, 123.8860);
-            var northEast = L.latLng(10.3280, 123.9060);
-            var bounds = L.latLngBounds(southWest, northEast);
 
-                var map = L.map('map', {
-            center: [10.3182, 123.8935], // Corrected Hall location
-            zoom: 17,
-            minZoom: 15,    // Keeps it at the barangay level
-            maxZoom: 18,    // Prevents the "Gray Screen" by stopping at the last available tile
-            maxBounds: bounds,
-            maxBoundsViscosity: 1.0
-        });
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors'
-            }).addTo(map);
+<script>
+document.addEventListener('DOMContentLoaded', function () {
 
-            // Updated Marker for the actual Hall location
-            L.marker(brgyHallCoords).addTo(map)
-                .bindPopup('<b>Brgy. Camputhaw Hall</b><br>Official Command Center')
-                .openPopup();
+    // =========================
+    // SAME CENTER AS USER MAP
+    // =========================
+    const barangayHallLat = 10.3210;
+    const barangayHallLng = 123.9007;
 
-            setTimeout(function() {
-                map.invalidateSize();
-            }, 500);
-        });
-    </script>
+    // =========================
+    // MAP INIT (MATCH USER MAP)
+    // =========================
+    var map = L.map('map').setView([barangayHallLat, barangayHallLng], 17);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    // =========================
+    // BARANGAY HALL (BLUE DEFAULT MARKER)
+    // =========================
+    L.marker([barangayHallLat, barangayHallLng])
+        .addTo(map)
+        .bindPopup("Barangay Kamputhaw Hall");
+
+    // =========================
+    // GREY HOUSEHOLD ICON
+    // =========================
+    const greyIcon = new L.Icon({
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-grey.png',
+        shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
+
+    // =========================
+    // HOUSEHOLDS FROM DB
+    // =========================
+    @foreach($households as $household)
+        L.marker(
+            [{{ $household->latitude }}, {{ $household->longitude }}],
+            { icon: greyIcon }
+        )
+        .addTo(map)
+        .bindPopup(`
+            <b>{{ $household->household_head }}</b><br>
+            {{ $household->street_name }}<br>
+            Sitio: {{ $household->sitio }}
+        `);
+    @endforeach
+
+});
+</script>
+
 @endpush
