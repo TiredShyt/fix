@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Household;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HouseholdController extends Controller
 {
@@ -41,8 +42,18 @@ class HouseholdController extends Controller
             'total_pwd' => 'required|integer|min:0',
             'total_seniors' => 'required|integer|min:0',
             'total_infants' => 'required|integer|min:0',
-            'has_pregnant_member' => 'required|boolean'
+            'has_pregnant_member' => 'required|boolean',
+            'evacuation_area' => 'nullable|string|max:255'
         ]);
+
+        $nextNumber = Household::count() + 1;
+
+        $validatedData['household_number'] = 'HH-' . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+
+        // Households are not yet assessed until staff training is complete.
+        $validatedData['score'] = null;
+        $validatedData['preparedness_status'] = null;
+        $validatedData['last_assessed'] = null;
 
         Household::create($validatedData);
 
@@ -54,7 +65,7 @@ class HouseholdController extends Controller
      */
     public function show(Household $household)
     {
-        //
+        return view('staff.households.show', compact('household'));
     }
 
     /**
@@ -78,6 +89,19 @@ class HouseholdController extends Controller
      */
     public function destroy(Household $household)
     {
-        //
+        $household->delete();
+
+        // Renumber remaining households sequentially
+        $remainingHouseholds = Household::orderBy('household_id')->get();
+        foreach ($remainingHouseholds as $index => $remainingHousehold) {
+            $newNumber = 'HH-' . str_pad($index + 1, 3, '0', STR_PAD_LEFT);
+            $remainingHousehold->update(['household_number' => $newNumber]);
+        }
+
+        if (request()->routeIs('admin.households.destroy')) {
+            return redirect()->route('admin.households')->with('success', 'Household deleted successfully.');
+        }
+
+        return redirect()->route('households.index')->with('success', 'Household deleted successfully.');
     }
 }

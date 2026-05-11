@@ -23,6 +23,8 @@ Route::middleware(['auth', 'role:admin'])->controller(AdminController::class)->g
     Route::get('/admin/dashboard', 'dashboard')->name('admin.dashboard');
     Route::get('/admin/households', 'households')->name('admin.households');
     Route::get('/admin/map', 'map')->name('admin.map');
+    Route::get('/admin/households/{household}', [HouseholdController::class, 'show'])->name('admin.households.show');
+    Route::delete('/admin/households/{household}', [HouseholdController::class, 'destroy'])->name('admin.households.destroy');
 });
 
 

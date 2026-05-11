@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Household extends Model
 {
+    protected $primaryKey = 'household_id';
+    public $incrementing = true;
+    protected $keyType = 'int';
+
     protected $fillable = [
         'recorded_by',
         'household_head',
@@ -19,8 +23,21 @@ class Household extends Model
         'total_pwd',
         'total_seniors',
         'total_infants',
-        'has_pregnant_member'
+        'has_pregnant_member',
+        'household_number',
+        'evacuation_area',
+        'preparedness_status',
+        'score',
+        'last_assessed'
     ];
 
-    protected $primaryKey = 'household_id';
+    protected $casts = [
+        'last_assessed' => 'datetime',
+        'has_pregnant_member' => 'boolean',
+    ];
+
+    public function recordedBy()
+    {
+        return $this->belongsTo(User::class, 'recorded_by');
+    }
 }

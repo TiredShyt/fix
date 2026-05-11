@@ -37,6 +37,13 @@ return new class extends Migration
             $table->integer('total_infants')->default(0); // Children under 5
             $table->boolean('has_pregnant_member')->default(false);
             
+            // Disaster Preparedness Assessment Fields
+            $table->string('household_number')->unique();
+            $table->string('evacuation_area')->nullable();
+            $table->string('preparedness_status')->nullable();
+            $table->integer('score')->nullable();
+            $table->datetime('last_assessed')->nullable();
+            
             // Standard Timestamps
             $table->timestamps();
         });
