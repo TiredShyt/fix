@@ -66,7 +66,7 @@
                         </a>
 
                         <!-- Logout -->
-                        <form method="POST" action="{{ route('logout.post') }}" class="inline">
+                        <form method="POST" action="{{ route('logout') }}" class="inline">
                             @csrf
                             <button type="submit" class="text-gray-600 hover:text-red-500 px-4 py-2">
                                 Logout

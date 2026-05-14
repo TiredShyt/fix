@@ -3,91 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - HANDA</title>
-    @vite('resources/css/app.css')
+    <title>HANDA - Login</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
 
-    <div class="w-full max-w-md bg-white rounded-2xl shadow-md p-8">
+<body class="m-0 p-0 bg-slate-100 flex items-center justify-center min-h-screen font-sans antialiased">
 
-        <!-- Logo -->
-        <div class="flex justify-center mb-4">
-            <div class="w-14 h-14 bg-gray-500 text-white flex items-center justify-center rounded-xl text-xl font-semibold">
-                H
+    <div class="flex w-[1100px] min-h-[650px] bg-white rounded-[20px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.15)]">
+        
+        <div class="flex-[1.2] bg-slate-900 text-white p-[70px] flex flex-col justify-start">
+            
+            <div class="flex items-center mb-5">
+                <div class="h-10 w-10 bg-blue-500 rounded-lg flex items-center justify-center text-2xl font-bold text-white mr-[15px]">
+                    H
+                </div>
+
+                <div>
+                    <h1 class="text-[2.2rem] m-0 tracking-[2px] font-extrabold text-white leading-none">
+                        HANDA
+                    </h1>
+                    <p class="mt-1 mb-0 mx-0 text-base text-white font-medium tracking-[0.5px]">
+                        Barangay Disaster Preparedness Monitoring System
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-[100px]">
+                <h2 class="text-[2.8rem] m-0 font-bold leading-snug text-white tracking-[1px] max-w-[450px]">
+                    Join us in building safer communities.
+                </h2>
+            </div>
+            
+            <div class="mt-auto text-sm opacity-50 tracking-[0.5px]">
+                © 2026 HANDA Project. All rights reserved.
             </div>
         </div>
 
-        <!-- Title -->
-        <h2 class="text-center text-2xl font-semibold text-gray-800">
-            HANDA System
-        </h2>
+        <div class="flex-1 p-[70px] flex flex-col justify-center bg-white">
 
-        <p class="text-center text-gray-500 mt-2 mb-6 text-sm">
-            Barangay Household Disaster Preparedness Monitoring
-        </p>
+            <div class="max-w-[400px] mx-auto w-full">
 
-        <!-- Form -->
-        <form method="POST" action="{{ route('login.post') }}">
-            @csrf
+                <h2 class="m-0 text-[2.5rem] text-slate-800 font-bold">
+                    Welcome back
+                </h2>
 
-            <!-- Email -->
-            <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Email
-                </label>
-                <input type="email" name="email"
-                    placeholder="Enter email"
-                    value="{{ old('email') }}"
-                    class="w-full px-4 py-2 rounded-lg bg-gray-100 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400">
-                
-                <!-- Validation Error for Email -->
-                @error('email')
-                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                @enderror
+                <p class="text-slate-500 mt-2 mb-[45px] text-lg">
+                    Please enter your details to login.
+                </p>
+
+                <form action="/login" method="POST">
+                    @csrf
+
+                    <div class="mb-[30px]">
+                        <label class="block text-base mb-3 text-slate-700 font-semibold">
+                            Email Address
+                        </label>
+                        <input 
+                            type="email" 
+                            name="email" 
+                            value="{{ old('email') }}"
+                            placeholder="name@example.com" 
+                            required 
+                            class="w-full p-4 border-2 border-slate-200 rounded-xl box-border outline-none text-base focus:border-blue-500 transition-colors @error('email') border-red-500 @enderror"
+                        >
+                        @error('email')
+                            <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="mb-[25px]">
+                        <div class="flex justify-between mb-3">
+                            <label class="text-base text-slate-700 font-semibold">
+                                Password
+                            </label>
+                            <a href="#" class="text-sm text-blue-600 no-underline font-semibold hover:underline">
+                                Forgot Password?
+                            </a>
+                        </div>
+
+                        <input 
+                            type="password" 
+                            name="password" 
+                            placeholder="••••••••" 
+                            required 
+                            class="w-full p-4 border-2 border-slate-200 rounded-xl box-border outline-none text-base focus:border-blue-500 transition-colors @error('email') border-red-500 @enderror"
+                        >
+                    </div>
+
+                    <div class="flex items-center mb-10">
+                        <input 
+                            type="checkbox" 
+                            id="remember" 
+                            name="remember"
+                            class="w-5 h-5 cursor-pointer accent-slate-900"
+                        >
+                        <label 
+                            for="remember" 
+                            class="ml-3 text-base text-slate-500 cursor-pointer select-none"
+                        >
+                            Remember this device
+                        </label>
+                    </div>
+
+                    <button 
+                        type="submit"
+                        class="w-full p-[18px] bg-slate-900 text-white border-none rounded-xl text-lg font-bold cursor-pointer transition-all duration-300 shadow-[0_4px_12px_rgba(15,23,42,0.2)] hover:bg-slate-800"
+                    >
+                        Sign In
+                    </button>
+
+                </form>
+
+                <p class="text-center mt-[45px] text-base text-slate-500">
+                    Don't have an account?
+                    <a 
+                        href="{{ route('register') }}" 
+                        class="text-blue-600 font-bold no-underline hover:underline"
+                    >
+                        Sign Up
+                    </a>
+                </p>
+
             </div>
-
-            <!-- Password -->
-            <div class="mb-6">
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Password
-                </label>
-                <input type="password" name="password"
-                    placeholder="Enter password"
-                    class="w-full px-4 py-2 rounded-lg bg-gray-100 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400">
-                
-                <!-- Validation Error for Password -->
-                @error('password')
-                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <!-- Login Button -->
-            <button type="submit"
-                class="w-full bg-gray-600 hover:bg-gray-700 text-white py-2.5 rounded-lg flex items-center justify-center gap-2 transition">
-                
-                <!-- Shield Icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 11c0 .67-.34 1.29-.9 1.64l-2.2 1.32A2 2 0 018 15.72V17a4 4 0 008 0v-1.28a2 2 0 00-.9-1.76l-2.2-1.32A2 2 0 0112 11z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 3l7 4v5c0 5-3.5 9-7 9s-7-4-7-9V7l7-4z" />
-                </svg>
-
-                Log In
-            </button>
-        </form>
-
-        <!-- Register Button -->
-        <div class="mt-6 text-center">
-            <p class="text-sm text-gray-500 mb-2">
-                Don’t have an account?
-            </p>
-
-            <a href="{{ route('register') }}"
-                class="inline-block w-full border border-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-100 transition">
-                Create Account
-            </a>
         </div>
 
     </div>
