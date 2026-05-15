@@ -1,59 +1,63 @@
-@extends('layouts.user')
+@extends('layouts.layout')
 
 @section('content')
-<div class="max-w-7xl mx-auto">
+<div class="w-full">
+    {{-- Dashboard Title --}}
     <div class="mb-8">
         <h1 class="text-3xl font-bold text-gray-800">BHW Dashboard</h1>
-        <p class="text-gray-500 mt-2">Manage your households, add new records, and monitor preparedness.</p>
+        <p class="text-gray-500 mt-2">Manage your households and monitor preparedness.</p>
     </div>
 
+    {{-- 4 Cards --}}
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-        <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-200">
-            <div class="text-sm text-gray-500">Total Households</div>
-            <div class="mt-4 text-4xl font-bold text-gray-900">{{ $totalHouseholds ?? 0 }}</div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+            <div class="text-sm text-gray-400 font-bold uppercase tracking-tight">Total Households</div>
+            <div class="mt-4 text-4xl font-black text-gray-900">{{ $totalHouseholds ?? 0 }}</div>
         </div>
-        <div class="bg-green-50 p-6 rounded-3xl shadow-sm border border-green-200">
-            <div class="text-sm text-green-700">Prepared</div>
-            <div class="mt-4 text-4xl font-bold text-green-700">{{ $prepared ?? 0 }}</div>
+        <div class="bg-green-50 p-6 rounded-3xl shadow-sm border border-green-100">
+            <div class="text-sm text-green-600 font-bold uppercase tracking-tight">Prepared</div>
+            <div class="mt-4 text-4xl font-black text-green-600">{{ $prepared ?? 0 }}</div>
         </div>
-        <div class="bg-yellow-50 p-6 rounded-3xl shadow-sm border border-yellow-200">
-            <div class="text-sm text-yellow-700">Partially Prepared</div>
-            <div class="mt-4 text-4xl font-bold text-yellow-700">{{ $partiallyPrepared ?? 0 }}</div>
+        <div class="bg-yellow-50 p-6 rounded-3xl shadow-sm border border-yellow-100">
+            <div class="text-sm text-yellow-600 font-bold uppercase tracking-tight">Partially Prepared</div>
+            <div class="mt-4 text-4xl font-black text-yellow-600">{{ $partiallyPrepared ?? 0 }}</div>
         </div>
-        <div class="bg-red-50 p-6 rounded-3xl shadow-sm border border-red-200">
-            <div class="text-sm text-red-700">Not Prepared</div>
-            <div class="mt-4 text-4xl font-bold text-red-700">{{ $notPrepared ?? 0 }}</div>
+        <div class="bg-red-50 p-6 rounded-3xl shadow-sm border border-red-100">
+            <div class="text-sm text-red-600 font-bold uppercase tracking-tight">Not Prepared</div>
+            <div class="mt-4 text-4xl font-black text-red-600">{{ $notPrepared ?? 0 }}</div>
         </div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-        <div class="lg:col-span-2 bg-white rounded-3xl border border-gray-200 shadow-sm p-6">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">Quick Actions</h2>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {{-- Quick Actions --}}
+        <div class="lg:col-span-2 bg-white rounded-3xl border border-gray-100 shadow-sm p-8">
+            <h2 class="text-xl font-bold text-gray-800 mb-6">Quick Actions</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <a href="{{ route('households.index') }}" class="block p-5 rounded-3xl bg-blue-600 text-white hover:bg-blue-700 transition">
-                    <div class="text-sm uppercase tracking-wide">Add Household</div>
-                    <div class="mt-3 text-2xl font-semibold">Go to Form</div>
+                <a href="#" class="p-6 rounded-3xl bg-blue-600 text-white hover:bg-blue-700 transition shadow-lg shadow-blue-100">
+                    <div class="text-xs font-bold uppercase opacity-80">Add Household</div>
+                    <div class="mt-2 text-2xl font-bold">Go to Form</div>
                 </a>
-                <a href="{{ route('staff.map') }}" class="block p-5 rounded-3xl bg-green-600 text-white hover:bg-green-700 transition">
-                    <div class="text-sm uppercase tracking-wide">Map View</div>
-                    <div class="mt-3 text-2xl font-semibold">Open Map</div>
+                <a href="{{ route('admin.map') }}" class="p-6 rounded-3xl bg-green-600 text-white hover:bg-green-700 transition shadow-lg shadow-green-100">
+                    <div class="text-xs font-bold uppercase opacity-80">Map View</div>
+                    <div class="mt-2 text-2xl font-bold">Open Map</div>
                 </a>
             </div>
         </div>
 
-        <div class="bg-white rounded-3xl border border-gray-200 shadow-sm p-6">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">Recent Households</h2>
-            @if(isset($recentHouseholds) && $recentHouseholds->count())
-                <ul class="divide-y divide-gray-200">
-                    @foreach($recentHouseholds as $household)
-                    <li class="py-4">
-                        <div class="font-semibold text-gray-800">{{ $household->household_head }}</div>
-                        <div class="text-sm text-gray-500">{{ $household->sitio }} — {{ $household->household_number }}</div>
-                    </li>
+        {{-- Recent Records --}}
+        <div class="bg-white rounded-3xl border border-gray-100 shadow-sm p-8">
+            <h2 class="text-xl font-bold text-gray-800 mb-6">Recent Records</h2>
+            @if(isset($recentHouseholds) && $recentHouseholds->count() > 0)
+                <div class="space-y-4">
+                    @foreach($recentHouseholds as $row)
+                        <div class="pb-4 border-b border-gray-50 last:border-0">
+                            <div class="font-bold text-gray-800">{{ $row->household_head }}</div>
+                            <div class="text-xs text-gray-400">Sitio {{ $row->sitio }}</div>
+                        </div>
                     @endforeach
-                </ul>
+                </div>
             @else
-                <p class="text-sm text-gray-500">No recent household records yet.</p>
+                <p class="text-gray-400 text-sm italic text-center py-10">No recent records found.</p>
             @endif
         </div>
     </div>

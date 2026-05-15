@@ -5,7 +5,7 @@
 
     <!-- Title -->
     <div class="mb-6">
-        <h1 class="text-3xl font-bold text-gray-800">Barangay Preparedness Dashboard</h1>
+        <h1 class="text-3xl font-bold text-gray-800">Barangay  Household Monitoring</h1>
         <p class="text-gray-500 mt-1">Household Disaster Preparedness Monitoring System</p>
     </div>
 

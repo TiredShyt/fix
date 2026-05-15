@@ -1,0 +1,71 @@
+/* --- SIDEBAR CONTAINER SETUP --- */
+aside {
+    min-width: 280px;
+    max-width: 280px;
+    height: 100vh;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Inter', sans-serif;
+    position: sticky;
+    top: 0;
+}
+
+/* --- BLUE BOX BRANDING (HANDA HEADER) --- */
+.bg-blue-600 {
+    background-color: #0061ff !important;
+    border-radius: 16px !important;
+}
+
+/* White Box inside Blue Branding */
+.bg-white.text-blue-600 {
+    color: #0061ff !important;
+    border-radius: 10px;
+}
+
+/* --- NAVIGATION ITEMS --- */
+nav a {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    margin-bottom: 5px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    color: #4a5568;
+    transition: all 0.2s ease-in-out;
+}
+
+/* --- ACTIVE STATE (THE BLUE GLOW) --- */
+.bg-blue-50 {
+    background-color: #eef4ff !important; /* Very light blue highlight */
+    color: #0061ff !important;
+    font-weight: 600;
+    border-radius: 12px;
+}
+
+/* Ensure icons in active link are also blue */
+.active-link i {
+    color: #0061ff !important;
+}
+
+/* --- HOVER & TRANSITIONS --- */
+nav a:hover:not(.bg-blue-50) {
+    background-color: #f9fafb;
+    color: #111827;
+}
+
+.transition-all {
+    transition: all 0.2s ease-in-out;
+}
+
+/* --- CUSTOM SCROLLBAR PARA SA SIDEBAR --- */
+aside::-webkit-scrollbar {
+    width: 4px;
+}
+
+aside::-webkit-scrollbar-thumb {
+    background: #edf2f7;
+    border-radius: 10px;
+}

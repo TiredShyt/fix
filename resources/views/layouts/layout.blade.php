@@ -1,74 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HANDA</title>
+    <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     @vite('resources/css/app.css')
-    @stack('styles')
 </head>
-<body class="bg-gray-100">
-
-    {{-- HEADER --}}
-    <header class="bg-white shadow-sm border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between items-center h-16">
-
-                <!-- Left -->
-                <div class="flex items-center space-x-4">
-                    <div class="w-10 h-10 bg-gray-500 text-white flex items-center justify-center rounded-lg font-bold">
-                        H
-                    </div>
+<body class="bg-gray-100 antialiased">
+    <div class="flex min-h-screen">
+        <aside class="w-72 bg-white border-r border-gray-200 flex flex-col h-screen sticky top-0">
+            <div class="p-4">
+                <div class="bg-blue-600 rounded-2xl p-4 flex items-center space-x-3 text-white shadow-md">
+                    <div class="w-10 h-10 bg-white text-blue-600 flex items-center justify-center rounded-xl font-bold">H</div>
                     <div>
-                        <h1 class="text-lg font-semibold text-gray-800">HANDA</h1>
-                        <p class="text-sm text-gray-500">Disaster Preparedness Monitoring</p>
+                        <h1 class="font-bold text-lg leading-tight">HANDA</h1>
+                        <p class="text-[10px] opacity-80 leading-tight">Disaster Preparedness</p>
                     </div>
                 </div>
-
-                <!-- Right Nav -->
-                <nav class="flex items-center space-x-4">
-
-                        <!-- Dashboard -->
-                        <a href="{{ route('admin.dashboard') }}"
-                            class="{{ request()->routeIs('admin.dashboard') 
-                            ? 'bg-gray-700 text-white px-4 py-2 rounded-xl' 
-                            : 'text-gray-600 hover:text-gray-900 px-4 py-2' }}">
-                            Dashboard
-                        </a>
-
-                        <!-- Households -->
-                        <a href="{{ route('admin.households') }}"
-                            class="{{ request()->routeIs('admin.households') 
-                            ? 'bg-gray-700 text-white px-4 py-2 rounded-xl' 
-                            : 'text-gray-600 hover:text-gray-900 px-4 py-2' }}">
-                            Households
-                        </a>
-
-                        <!-- Map -->
-                        <a href="{{ route('admin.map') }}"
-                            class="{{ request()->routeIs('admin.map') 
-                            ? 'bg-gray-700 text-white px-4 py-2 rounded-xl' 
-                            : 'text-gray-600 hover:text-gray-900 px-4 py-2' }}">
-                            Map View
-                        </a>
-
-                        <!-- Logout -->
-                        <form method="POST" action="{{ route('logout') }}" class="inline">
-                            @csrf
-                            <button type="submit" class="text-gray-600 hover:text-red-500 px-4 py-2">
-                                Logout
-                            </button>
-                        </form>
-                    
-                </nav>
-
             </div>
-        </div>
-    </header>
+            <nav class="flex-1 px-4 mt-4 space-y-1">
+                <a href="{{ route('admin.dashboard') }}" class="flex items-center space-x-3 px-4 py-3 rounded-xl {{ request()->routeIs('admin.dashboard') ? 'bg-blue-50 text-blue-600 font-bold' : 'text-gray-500' }}">
+                    <i class="fa-solid fa-house-chimney"></i> <span>Dashboard</span>
+                </a>
+                <a href="{{ route('admin.households') }}" class="flex items-center space-x-3 px-4 py-3 rounded-xl {{ request()->routeIs('admin.households') ? 'bg-blue-50 text-blue-600 font-bold' : 'text-gray-500' }}">
+                    <i class="fa-solid fa-clipboard-list"></i> <span>Households</span>
+                </a>
+            </nav>
+        </aside>
 
-    {{-- PAGE CONTENT --}}
-    <main class="p-6">
-        @yield('content')
-    </main>
-
-    @stack('scripts')
+        <main class="flex-1 p-10">
+            @yield('content')
+        </main>
+    </div>
 </body>
 </html>
