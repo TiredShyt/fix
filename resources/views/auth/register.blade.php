@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HANDA - Register</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body style="margin: 0; padding: 0; background-color: #f1f5f9; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
@@ -59,11 +60,11 @@
                     <div style="display: flex; gap: 15px; margin-bottom: 20px;">
                         <div style="flex: 1;">
                             <label style="display: block; font-size: 0.9rem; margin-bottom: 8px; color: #334155; font-weight: 600;">First Name</label>
-                            <input type="text" name="first_name" required style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 10px; box-sizing: border-box; outline: none; font-size: 0.95rem;">
+                            <input type="text" name="firstName" required style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 10px; box-sizing: border-box; outline: none; font-size: 0.95rem;">
                         </div>
                         <div style="flex: 1;">
                             <label style="display: block; font-size: 0.9rem; margin-bottom: 8px; color: #334155; font-weight: 600;">Last Name</label>
-                            <input type="text" name="last_name" required style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 10px; box-sizing: border-box; outline: none; font-size: 0.95rem;">
+                            <input type="text" name="lastName" required style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 10px; box-sizing: border-box; outline: none; font-size: 0.95rem;">
                         </div>
                     </div>
 
@@ -73,8 +74,7 @@
                     </div>
 
                     <div style="margin-bottom: 20px;">
-                        <label style="display: block; font-size: 0.9rem; margin-bottom: 8px; color: #334155; font-weight: 600;">Contact Number</label>
-                        <input type="text" name="contact_number" maxlength="15" required style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 10px; box-sizing: border-box; outline: none; font-size: 0.95rem;">
+                        <label style="display: block; font-size: 0.9rem; margin-bottom: 8px; color: #334155; font-weight: 600;">Contact Number</label>                            <input type="text" name="contactNumber" maxlength="15" required style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 10px; box-sizing: border-box; outline: none; font-size: 0.95rem;">
                     </div>
 
                     <div style="margin-bottom: 20px;">
@@ -86,9 +86,14 @@
                         </select>
                     </div>
 
-                    <div style="margin-bottom: 30px;">
+                    <div style="margin-bottom: 20px;">
                         <label style="display: block; font-size: 0.9rem; margin-bottom: 8px; color: #334155; font-weight: 600;">Password</label>
                         <input type="password" name="password" required style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 10px; box-sizing: border-box; outline: none; font-size: 0.95rem;">
+                    </div>
+
+                    <div style="margin-bottom: 30px;">
+                        <label style="display: block; font-size: 0.9rem; margin-bottom: 8px; color: #334155; font-weight: 600;">Confirm Password</label>
+                        <input type="password" name="password_confirmation" required style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 10px; box-sizing: border-box; outline: none; font-size: 0.95rem;">
                     </div>
 
                     <button type="submit" style="width: 100%; padding: 15px; background-color: #0f172a; color: white; border: none; border-radius: 12px; font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);">

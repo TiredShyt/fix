@@ -32,7 +32,7 @@ class UserFactory extends Factory
         'password' => bcrypt('password'), // or static::$password
         'contactNumber' => fake()->phoneNumber(),
         'user_id' => 'user_' . fake()->unique()->numberBetween(1000, 9999),
-        'role' => 'user',
+        'role' => 'bhw',
         'remember_token' => Str::random(10),
     ];
 }

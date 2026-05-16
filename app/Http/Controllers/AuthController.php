@@ -46,16 +46,24 @@ class AuthController extends Controller
             'firstName' => 'required|string|max:255',
             'lastName' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
+            'contactNumber' => 'required|string|max:15',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'nullable|string' // Optional: depende kung naay dropdown sa register
+            'role' => 'nullable|string'
         ]);
+
+        // Auto-generate a unique user_id
+        $latestUser = User::latest('id')->first();
+        $nextId = $latestUser ? $latestUser->id + 1 : 1;
+        $userId = 'USR-' . str_pad($nextId, 4, '0', STR_PAD_LEFT);
 
         $user = User::create([
             'firstName' => $request->firstName,
             'lastName' => $request->lastName,
             'email' => $request->email,
+            'contactNumber' => $request->contactNumber,
+            'user_id' => $userId,
             'password' => Hash::make($request->password),
-            'role' => $request->role ?? 'bhw', // DEFAULT ROLE para dili ma-block sa middleware
+            'role' => $request->role ?? 'bhw',
         ]);
 
         Auth::login($user);

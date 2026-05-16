@@ -15,8 +15,9 @@ class User extends Authenticatable
     'lastName',
     'email',
     'password',
-    'contactNumber', // I-add kini kung wala pa
-    'role',          // I-add sad kini
+    'contactNumber',
+    'role',
+    'user_id',
 ];
 
     protected $hidden = [
