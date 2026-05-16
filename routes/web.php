@@ -13,7 +13,14 @@ use App\Http\Controllers\HouseholdController;
 |--------------------------------------------------------------------------
 */
 Route::get('/', function () {
-    return view('home');
+    if (Auth::check()) {
+        $user = Auth::user();
+        if ($user->role === 'admin') {
+            return redirect()->route('admin.dashboard');
+        }
+        return redirect()->route('staff.dashboard');
+    }
+    return redirect()->route('login');
 })->name('home');
 
 /*
